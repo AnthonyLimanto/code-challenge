@@ -2,9 +2,17 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { AccountCard } from './components/AccountCard'
+import type { ElectricityAccount } from './types/Account'
 
 function App() {
   const [count, setCount] = useState(0)
+  const example: ElectricityAccount = {
+                    id: "A-0001",
+                    type: "ELECTRICITY",
+                    address: "1 Greville Ct, Thomastown, 3076, Victoria",
+                    meterNumber: "1234567890",
+                  }
 
   return (
     <>
@@ -28,6 +36,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <AccountCard account={example}></AccountCard>
     </>
   )
 }
