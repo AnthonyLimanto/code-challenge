@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json", // Extend the main tsconfig
+    "compilerOptions": {
+      "module": "commonjs", // Required for Jest
+      "jsx": "react", // Enable JSX if needed (for frontend tests)
+      "esModuleInterop": true, // Allow default imports for CommonJS modules
+      "allowSyntheticDefaultImports": true // Allow synthetic imports
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  }
