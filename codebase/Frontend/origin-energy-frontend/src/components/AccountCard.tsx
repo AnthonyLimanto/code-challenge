@@ -1,69 +1,69 @@
 import type { FC } from "react";
 import type { Account } from "../types/Account";
-import { Avatar, Card, CardHeader, CardContent, Typography, Box, Button } from "@mui/material";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Button,
+} from "@mui/material";
 
 interface AccountCardProps {
     account: Account;
+    onPay: (account: Account) => void;
 }
 
-export const AccountCard: FC<AccountCardProps> = ({ account }) => {
-    return (
-        <Card sx={{ display: 'flex' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                <CardHeader
-                    avatar={
-                        <Avatar>
-                            Icon
-                        </Avatar>
-                    }
-                />
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                            <Typography component="div" variant="h4">
-                                {account.type}
-                            </Typography>
-                            <Typography
-                                variant="subtitle1"
-                                component="div"
-                                sx={{ color: 'text.secondary' }}
-                            >
-                                {account.id}
-                            </Typography>
-                            <Typography
-                                variant="subtitle1"
-                                component="div"
-                                sx={{ color: 'text.secondary' }}
-                            >
-                                {account.address}
-                            </Typography>
+export const AccountCard: FC<AccountCardProps> = ({ account, onPay }) => {
+	const { type, id, address } = account;
+	const balance = 30;
 
-                            <Box sx={{ display: 'flex', flexDirection: 'row', paddingTop: '16px' }}>
-                                <Typography component="div" variant="h6" style={{  paddingRight: '100%' }}>
-                                    Account Balance
-                                </Typography>
+	const balanceColor =
+		balance > 0 ? "success.main" : balance < 0 ? "error.main" : "grey.500";
 
-                                <Typography component="div" variant="p" color="primary" >
-                                    Account Balance
-                                </Typography>
+	return (
+		<Card sx={{ maxWidth: 500, mx: "auto", my: 2, p: 2 }}>
+		{/* Row 1: Avatar + Details */}
+		<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+			<Avatar sx={{ mr: 2 }}>{/* Icon */}</Avatar>
+			<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+				<Typography variant="h6">{type}</Typography>
+				<Typography variant="subtitle2" color="text.secondary">
+					{id}
+				</Typography>
+				<Typography variant="subtitle2" color="text.secondary">
+					{address}
+				</Typography>
+			</Box>
+		</Box>
 
-                            </Box>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={{ marginTop: '16px' }}
-                                onClick={() => {
-                                    // Add your payment logic here
-                                    console.log("Make Payment button clicked");
-                                }}
-                            >
-                                Make Payment
-                            </Button>
-                        </Box>
+		{/* Row 2: Balance (indented to match details) */}
+		<Box
+			sx={{
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "space-between",
+			pl: 6,   // indent same as avatar + mr:2
+			pr: 2,   // optional right padding
+			mb: 2,
+			}}
+		>
+			<Typography variant="subtitle1">Account Balance</Typography>
+			<Typography variant="h6" sx={{ color: balanceColor }}>
+			${balance.toFixed(2)}
+			</Typography>
+		</Box>
 
-                    </Box>
-                </CardContent>
-            </Box>
-        </Card>
-    );
+		{/* Button: also indented */}
+		<Box sx={{ pl: 6, textAlign: "left" }}>
+			<Button
+			variant="contained"
+			color="primary"
+			onClick={() => onPay(account)}
+			>
+			Make Payment
+			</Button>
+		</Box>
+		</Card>
+	);
 };
