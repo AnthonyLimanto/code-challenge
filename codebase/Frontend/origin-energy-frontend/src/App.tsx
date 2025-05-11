@@ -13,6 +13,7 @@ function App() {
                     address: "1 Greville Ct, Thomastown, 3076, Victoria",
                     meterNumber: "1234567890",
                   }
+  const balance = 30;
 
   return (
     <>
@@ -36,7 +37,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <AccountCard account={example}></AccountCard>
+      <AccountCard account={example} balance={balance}></AccountCard>
     </>
   )
 }
