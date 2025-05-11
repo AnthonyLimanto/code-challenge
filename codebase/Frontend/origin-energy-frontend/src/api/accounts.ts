@@ -1,19 +1,18 @@
-import { MOCK_ENERGY_ACCOUNTS_API, MOCK_DUE_CHARGES_API } from "./MOCKDATA";
+const BASEURL = "http://localhost:3000/"
 
-// Fetch accounts and include their balances
-// Later in the back end combine the accounts balance so here only call accounts api
 export const fetchAccounts = async () => {
-    // Fetch accounts
-    const accounts = await MOCK_ENERGY_ACCOUNTS_API();
+    try {
+        // Call the backend API to fetch accounts with balances
+        const response = await fetch(BASEURL + 'accounts'); 
+        if (!response.ok) {
+            throw new Error(`Failed to fetch accounts: ${response.statusText}`);
+        }
 
-    // Fetch balances
-    const balances = await MOCK_DUE_CHARGES_API();
-
-    // Merge balances into accounts
-    const accountsWithBalances = accounts.map((account: any) => ({
-        ...account,
-        balance: balances[account.id] || 0, // Default balance to 0 if not found
-    }));
-
-    return accountsWithBalances;
+        // Parse the JSON response
+        const accounts = await response.json();
+        return accounts;
+    } catch (error) {
+        console.error('Error fetching accounts:', error);
+        throw error; 
+    }
 };
