@@ -1,9 +1,9 @@
-const accounts: [] = [
+const accounts: any[] = [
     {
         id: "A-0001",
         type: "ELECTRICITY",
         address: "1 Greville Ct, Thomastown, 3076, Victoria",
-        meterNumber: "1234567890",
+        meterNumber: "1234567890"
     },
     {
         id: "A-0002",
@@ -15,13 +15,13 @@ const accounts: [] = [
         id: "A-0003",
         type: "ELECTRICITY",
         address: "44 William Road, Cresswell Downs, 0862, Northern Territory",
-        meterNumber: "12345672313",
+        meterNumber: "12345672313"
     },
     {
         id: "A-0004",
         type: "ELECTRICITY",
         address: "87 Carolina Park Road, Forresters Beach, 2260, New South Wales",
-        meterNumber: "12345671244",
+        meterNumber: "12345671244"
     },
     {
         id: "A-0005",
@@ -33,7 +33,7 @@ const accounts: [] = [
         id: "A-0006",
         type: "ELECTRICITY",
         address: "3 Ocean View Dr, Torquay, 3228, Victoria",
-        meterNumber: "12412421244",
+        meterNumber: "12412421244"
     },
     {
         id: "A-0007",
@@ -45,7 +45,7 @@ const accounts: [] = [
         id: "A-0008",
         type: "ELECTRICITY",
         address: "88 Harbour St, Sydney, 2000, New South Wales",
-        meterNumber: "22223141443",
+        meterNumber: "22223141443"
     },
     {
         id: "A-0009",
@@ -55,17 +55,27 @@ const accounts: [] = [
     },
 ];
 
-export function MOCK_ENERGY_ACCOUNTS_API(): Promise<[]> {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(accounts);
-        }, 1000); // simulate a 1 second delay for the API call
+export async function MOCK_ENERGY_ACCOUNTS_API(): Promise<any[]> {
+    return new Promise(async (resolve) => {
+        setTimeout(async () => {
+            // Fetch balances
+            const balances = await MOCK_DUE_CHARGES_API();
+
+            // Merge balances into accounts
+            const accountsWithBalances = accounts.map((account) => ({
+                ...account,
+                balance: balances[account.id] || 0, // Default balance to 0 if not found
+            }));
+
+            resolve(accountsWithBalances);
+        }, 1000); // Simulate a 1-second delay
     });
 }
 
-const dueCharges: [] = [
+const dueCharges: any[] = [
     { id: "D-0001", accountId: "A-0001", date: "2025-04-01", amount: 10 },
     { id: "D-0002", accountId: "A-0001", date: "2025-04-08", amount: 20 },
+
     { id: "D-0003", accountId: "A-0003", date: "2025-03-25", amount: -15 },
     { id: "D-0004", accountId: "A-0003", date: "2025-04-05", amount: -25 },
 
@@ -87,11 +97,17 @@ const dueCharges: [] = [
     { id: "D-0016", accountId: "A-0009", date: "2025-04-12", amount: -30 },
 ];
 
-export function MOCK_DUE_CHARGES_API(): Promise<[]> {
-    return new Promise(() => {
+export function MOCK_DUE_CHARGES_API(): Promise<{ [accountId: string]: number }> {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            return 30;
-        }, 1000);
+            // Calculate balances by aggregating amounts for each accountId
+            const balances = dueCharges.reduce((acc, charge) => {
+                const { accountId, amount } = charge;
+                acc[accountId] = (acc[accountId] || 0) + amount;
+                return acc;
+            }, {} as { [accountId: string]: number });
+
+            resolve(balances);
+        }, 1000); // Simulate a 1-second delay
     });
 }
-

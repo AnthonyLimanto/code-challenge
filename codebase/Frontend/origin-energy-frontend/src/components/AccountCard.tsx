@@ -11,13 +11,11 @@ import {
 
 interface AccountCardProps {
     account: Account;
-	balance: number;
     onPay: (account: Account) => void;
 }
 
-export const AccountCard: FC<AccountCardProps> = ({ account, balance, onPay }) => {
-	const { type, id, address } = account;
-
+export const AccountCard: FC<AccountCardProps> = ({ account, onPay }) => {
+	const { type, id, address, balance } = account;
 	const balanceColor =
 		balance > 0 ? "success.main" : balance < 0 ? "error.main" : "grey.500";
 

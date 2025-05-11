@@ -1,45 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { AccountCard } from './components/AccountCard'
-import type { ElectricityAccount } from './types/Account'
+import { useState, useEffect } from 'react';
+import './App.css';
+import { AccountCard } from './components/AccountCard';
+import type { Account } from './types/Account';
+import { fetchAccounts } from './api/accounts';
 
 function App() {
-  const [count, setCount] = useState(0)
-  const example: ElectricityAccount = {
-                    id: "A-0001",
-                    type: "ELECTRICITY",
-                    address: "1 Greville Ct, Thomastown, 3076, Victoria",
-                    meterNumber: "1234567890",
-                  }
-  const balance = 30;
+  const [accounts, setAccounts] = useState<Account[]>([]);
+
+  useEffect(() => {
+    // Fetch accounts from the API
+    const fetchAccountsData = async () => {
+      try {
+        const accountsData = await fetchAccounts(); // Fetch accounts with balances
+        setAccounts(accountsData);
+      } catch (error) {
+        console.error('Error fetching accounts:', error);
+      }
+    };
+
+    fetchAccountsData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <AccountCard account={example} balance={balance}></AccountCard>
-    </>
-  )
+    <div>
+      {accounts.map((account) => (
+        <AccountCard
+          key={account.id}
+          account={account}
+          onPay={(account) => console.log(`Paying for account: ${account.id}`)} // Replace with actual payment logic
+        />
+      ))}
+    </div>
+  );
 }
 
-export default App
+export default App;
