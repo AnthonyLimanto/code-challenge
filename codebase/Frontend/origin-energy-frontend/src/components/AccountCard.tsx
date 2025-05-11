@@ -23,7 +23,7 @@ export const AccountCard: FC<AccountCardProps> = ({ account, onPay }) => {
 		<Card sx={{ maxWidth: 500, mx: "auto", my: 2, p: 2 }}>
 		{/* Row 1: Avatar + Details */}
 		<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-			<Avatar sx={{ mr: 2 }}>{/* Icon */}</Avatar>
+			<Avatar sx={{ mr: 2 }}></Avatar>
 			<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
 				<Typography variant="h6">{type}</Typography>
 				<Typography variant="subtitle2" color="text.secondary">
@@ -41,8 +41,8 @@ export const AccountCard: FC<AccountCardProps> = ({ account, onPay }) => {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "space-between",
-			pl: 6,   // indent same as avatar + mr:2
-			pr: 2,   // optional right padding
+			pl: 6, 
+			pr: 2, 
 			mb: 2,
 			}}
 		>
