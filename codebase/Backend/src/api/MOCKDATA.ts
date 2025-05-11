@@ -1,5 +1,9 @@
 
-const accounts: [] = [
+type Account = 
+    | { id: string; type: "ELECTRICITY"; address: string; meterNumber: string }
+    | { id: string; type: "GAS"; address: string; volume: number };
+
+const accounts: Account[] = [
     {
         id: "A-0001",
         type: "ELECTRICITY",
@@ -56,7 +60,7 @@ const accounts: [] = [
     },
 ];
 
-export function MOCK_ENERGY_ACCOUNTS_API(): Promise<[]> {
+export function MOCK_ENERGY_ACCOUNTS_API(): Promise<Account[]> {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(accounts);
@@ -66,7 +70,9 @@ export function MOCK_ENERGY_ACCOUNTS_API(): Promise<[]> {
 
 
 
-const dueCharges: [] = [
+type DueCharge = { id: string; accountId: string; date: string; amount: number };
+
+const dueCharges: DueCharge[] = [
     { id: "D-0001", accountId: "A-0001", date: "2025-04-01", amount: 10 },
     { id: "D-0002", accountId: "A-0001", date: "2025-04-08", amount: 20 },
     { id: "D-0003", accountId: "A-0003", date: "2025-03-25", amount: -15 },
@@ -90,7 +96,7 @@ const dueCharges: [] = [
     { id: "D-0016", accountId: "A-0009", date: "2025-04-12", amount: -30 },
 ];
 
-export function MOCK_DUE_CHARGES_API(): Promise<[]> {
+export function MOCK_DUE_CHARGES_API(): Promise<DueCharge[]> {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(dueCharges);

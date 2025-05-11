@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import accountRoutes from './routes/accountRoutes';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const App = express();
+App.use(cors());
+App.use(express.json());
+App.use(accountRoutes);
 
-export default app;
+export default App;
