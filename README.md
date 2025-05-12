@@ -1,5 +1,5 @@
 ## Full Stack Code Challenge
-This is React + Node.js application that renders a customer's energy accounts
+This is React + Node.js application that renders a customer's energy accounts, making payments and related logic is out of scope for this project.
 
 The code is split into the Frontend and Backend folders 
 
@@ -41,3 +41,17 @@ The features included are:
 - Implement an endpoint to fetch energy accounts which internally calls the energy accounts API and the due charges API.
 - The api response should calculate the balance for each account by adding up the due charges for each account.
 - Tests
+
+
+### Design Choices
+#### Frontend
+For our frontend we seperate into different folders to keep the project modular, readable and scalable.
+
+Vite was chosen because it's really fast. It starts the app quickly and updates the page instantly when we make changes. It also works well with React, TypeScript,  which makes development easier.
+
+We used Material UI (MUI) because it provides a set of ready-made, responsive components that follow modern design standards. This helped us build a clean and consistent UI quickly without writing a lot of custom CSS.
+
+#### Backend
+For our backend, we used Express.js with Node.js to keep things simple and efficient. Express was chosen because it's lightweight, unopinionated, and makes setting up RESTful APIs fast and straightforward. 
+
+We kept the backend modular by separating concerns into different files (e.g. routes, controllers), which improves code readability and scalability as the project grows.
