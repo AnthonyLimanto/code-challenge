@@ -49,9 +49,9 @@ For our frontend we seperate into different folders to keep the project modular,
 
 Vite was chosen because it's really fast. It starts the app quickly and updates the page instantly when we make changes. It also works well with React, TypeScript,  which makes development easier.
 
-We used Material UI (MUI) because it provides a set of ready-made, responsive components that follow modern design standards. This helped us build a clean and consistent UI quickly without writing a lot of custom CSS.
+We used Material UI (MUI) because it provides a set of ready-made, responsive components that follow modern design standards. This helped me build a clean and consistent UI quickly without writing a lot of custom CSS.
 
 #### Backend
 For our backend, we used Express.js with Node.js to keep things simple and efficient. Express was chosen because it's lightweight, unopinionated, and makes setting up RESTful APIs fast and straightforward. 
 
-We kept the backend modular by separating concerns into different files (e.g. routes, controllers), which improves code readability and scalability as the project grows.
+The backend was kept modular by separating concerns into different files (e.g. routes, controllers), which improves code readability and scalability as the project grows.
