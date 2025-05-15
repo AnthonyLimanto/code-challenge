@@ -1,17 +1,18 @@
-export type ElectricityAccount = {
+export interface BaseAccount {
     id: string;
-    type: "ELECTRICITY";
     address: string;
-    meterNumber: string;
     balance: number;
+}
+
+export interface ElectricityAccount extends BaseAccount {
+    type: "ELECTRICITY";
+    meterNumber: string;
+
 };
 
-export type GasAccount = {
-    id: string;
+export interface GasAccount extends BaseAccount {
     type: "GAS";
-    address: string;
     volume: number;
-    balance: number;
 };
 
 export type Account = ElectricityAccount | GasAccount;
